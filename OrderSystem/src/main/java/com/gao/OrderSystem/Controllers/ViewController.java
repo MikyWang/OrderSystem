@@ -11,4 +11,8 @@ public class ViewController {
 		return "test";
 	}
 	
+	@RequestMapping(value="register.action")
+	public String register() {
+		return "register";
+	}
 }
