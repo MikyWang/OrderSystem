@@ -4,30 +4,32 @@
   <resultMap id="BaseResultMap" type="com.gao.OrderSystem.Entity.User" >
     <id column="user_id" property="userId" jdbcType="VARCHAR" />
     <id column="user_name" property="userName" jdbcType="VARCHAR" />
+    <id column="user_mail" property="userMail" jdbcType="VARCHAR" />
     <result column="password" property="password" jdbcType="VARCHAR" />
     <result column="power" property="power" jdbcType="INTEGER" />
-    <result column="user_mail" property="userMail" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    user_id, user_name, password, power, user_mail
+    user_id, user_name, user_mail, password, power
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.gao.OrderSystem.Entity.UserKey" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from user_table
     where user_id = #{userId,jdbcType=VARCHAR}
-      and user_name = #{userName,jdbcType=VARCHAR}
+      or user_name = #{userName,jdbcType=VARCHAR}
+      or user_mail = #{userMail,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="com.gao.OrderSystem.Entity.UserKey" >
     delete from user_table
     where user_id = #{userId,jdbcType=VARCHAR}
-      and user_name = #{userName,jdbcType=VARCHAR}
+      or user_name = #{userName,jdbcType=VARCHAR}
+      or user_mail = #{userMail,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.gao.OrderSystem.Entity.User" >
-    insert into user_table (user_id, user_name, password, 
-      power, user_mail)
-    values (#{userId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{power,jdbcType=INTEGER}, #{userMail,jdbcType=VARCHAR})
+    insert into user_table (user_id, user_name, user_mail,
+      password, power)
+    values (#{userId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{userMail,jdbcType=VARCHAR},
+      #{password,jdbcType=VARCHAR}, #{power,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.gao.OrderSystem.Entity.User" >
     insert into user_table
@@ -38,14 +40,14 @@
       <if test="userName != null" >
         user_name,
       </if>
+      <if test="userMail != null" >
+        user_mail,
+      </if>
       <if test="password != null" >
         password,
       </if>
       <if test="power != null" >
         power,
-      </if>
-      <if test="userMail != null" >
-        user_mail,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -55,14 +57,14 @@
       <if test="userName != null" >
         #{userName,jdbcType=VARCHAR},
       </if>
+      <if test="userMail != null" >
+        #{userMail,jdbcType=VARCHAR},
+      </if>
       <if test="password != null" >
         #{password,jdbcType=VARCHAR},
       </if>
       <if test="power != null" >
         #{power,jdbcType=INTEGER},
-      </if>
-      <if test="userMail != null" >
-        #{userMail,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -75,19 +77,17 @@
       <if test="power != null" >
         power = #{power,jdbcType=INTEGER},
       </if>
-      <if test="userMail != null" >
-        user_mail = #{userMail,jdbcType=VARCHAR},
-      </if>
     </set>
     where user_id = #{userId,jdbcType=VARCHAR}
-      and user_name = #{userName,jdbcType=VARCHAR}
+      or user_name = #{userName,jdbcType=VARCHAR}
+      or user_mail = #{userMail,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.gao.OrderSystem.Entity.User" >
     update user_table
     set password = #{password,jdbcType=VARCHAR},
-      power = #{power,jdbcType=INTEGER},
-      user_mail = #{userMail,jdbcType=VARCHAR}
+      power = #{power,jdbcType=INTEGER}
     where user_id = #{userId,jdbcType=VARCHAR}
-      and user_name = #{userName,jdbcType=VARCHAR}
+      or user_name = #{userName,jdbcType=VARCHAR}
+      or user_mail = #{userMail,jdbcType=VARCHAR}
   </update>
 </mapper>

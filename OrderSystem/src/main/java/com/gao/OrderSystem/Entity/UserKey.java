@@ -5,6 +5,8 @@ public class UserKey {
 
     private String userName;
 
+    private String userMail;
+
     public String getUserId() {
         return userId;
     }
@@ -19,5 +21,13 @@ public class UserKey {
 
     public void setUserName(String userName) {
         this.userName = userName == null ? null : userName.trim();
+    }
+
+    public String getUserMail() {
+        return userMail;
+    }
+
+    public void setUserMail(String userMail) {
+        this.userMail = userMail == null ? null : userMail.trim();
     }
 }

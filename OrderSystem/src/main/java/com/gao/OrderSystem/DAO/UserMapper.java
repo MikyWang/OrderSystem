@@ -1,11 +1,8 @@
 package com.gao.OrderSystem.DAO;
 
-import org.springframework.stereotype.Repository;
-
 import com.gao.OrderSystem.Entity.User;
 import com.gao.OrderSystem.Entity.UserKey;
 
-@Repository
 public interface UserMapper {
     int deleteByPrimaryKey(UserKey key);
 

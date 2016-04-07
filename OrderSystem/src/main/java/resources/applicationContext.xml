@@ -36,7 +36,7 @@
     <!-- 扫描basePackage接口 -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
     	<!-- 映射器接口文件的包路径， -->
-        <property name="basePackage" value="com.gao.WebStudy.Dao" />
+        <property name="basePackage" value="com.gao.OrderSystem.DAO" />
     </bean>
 
     <!-- 使用annotation定义事务 -->
