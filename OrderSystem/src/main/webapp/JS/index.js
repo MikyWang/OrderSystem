@@ -5,18 +5,41 @@ $(document).ready(function() {
             if (!isNullOrEmpty(data)) {
                 indexModel.userName(data.userName);
                 indexModel.isLogin(true);
-                indexModel.contentUrl('menu.action');
+                if (data.power == 1) {
+                    navigate("admin.action");
+                } else {
+                    navigate("menu.action");
+                };
             } else {
-                indexModel.contentUrl('register.action');
+                if (top != self) {
+                    var urls = parent.location.href.split('/');
+                    var actuallUrl = urls[urls.length - 1];
+                    if (actuallUrl == "login.action") {
+                        navigate(actuallUrl);
+                    };
+                } else {
+                    navigate("register.action");
+                };
             };
         }
     });
 });
 
+function navigate(url) {
+    if (top == self) {
+        window.location.href = url;
+    } else {
+        var urls = parent.location.href.split('/');
+        var actuallUrl = urls[urls.length - 1];
+        if (actuallUrl != url) {
+            parent.location.href = url;
+        };
+    };
+}
+
 var indexModel = {
     userName : ko.observable(''),
     password : ko.observable(''),
-    contentUrl : ko.observable(''),
     userUrl : ko.observable('#'),
     isLogin : ko.observable(false),
 };
@@ -35,9 +58,35 @@ indexModel.login = function() {
         data : JSON.stringify(user),
         success : function(data) {
             if (data) {
-                location.reload();
+                if (top == self) {
+                    location.reload();
+                } else {
+                    parent.location = "/OrderSystem";
+                };
             } else {
                 alert("该用户不存在");
+            };
+        }
+    });
+};
+
+indexModel.loginPage = function() {
+    if (top == self) {
+        location.href = "login.action";
+    } else {
+        parent.location.href = "login.action";
+    };
+};
+
+indexModel.logout = function() {
+    $.ajax({
+        url : 'logOut.action',
+        async : true,
+        success : function() {
+            if (top == self) {
+                location.reload();
+            } else {
+                parent.location = "/OrderSystem";
             };
         }
     });

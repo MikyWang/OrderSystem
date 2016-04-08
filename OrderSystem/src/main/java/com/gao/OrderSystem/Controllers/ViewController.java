@@ -1,6 +1,5 @@
 package com.gao.OrderSystem.Controllers;
 
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -11,9 +10,15 @@ public class ViewController {
 	public String register() {
 		return "register";
 	}
-	
-	@RequestMapping(value="menu.action")
-	public String menu(){
+
+	@RequestMapping(value = "menu.action")
+	public String menu() {
 		return "menu";
 	}
+
+	@RequestMapping(value = "login.action")
+	public String login() {
+		return "login";
+	}
+
 }

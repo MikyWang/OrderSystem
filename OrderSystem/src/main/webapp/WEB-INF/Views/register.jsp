@@ -16,8 +16,11 @@
 <script src="JS/bootstrap.min.js"></script>
 <script src="JS/register.js"></script>
 </head>
-<body data-model="RegisterModel">
-	<div class="container">
+<body>
+	<div class="embed-responsive" style="height: 100px;">
+		<iframe class="embed-responsive-item" src="/OrderSystem"></iframe>
+	</div>
+	<div class="container" data-model="RegisterModel">
 		<div class="row">
 			<h3 class="text-center" style="margin-bottom: 30px">注册用户</h3>
 		</div>

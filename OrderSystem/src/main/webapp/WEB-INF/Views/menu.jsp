@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<title>注册</title>
+<title>菜单</title>
 <meta name="viewport" content="width=device-width; initial-scale=1.0">
 <link rel="stylesheet" type="text/css" href="CSS/StyleBase.css" />
 <link rel="stylesheet" type="text/css" href="CSS/bootstrap.min.css" />
@@ -16,12 +16,15 @@
 <script src="JS/menu.js"></script>
 </head>
 <body>
+	<div class="embed-responsive" style="height: 100px;">
+		<iframe class="embed-responsive-item" src="/OrderSystem"></iframe>
+	</div>
 	<div class="container">
 		<div class="row">
 			<div class="well media col-md-3" style="margin: 5px 5px !important;">
 				<div class="media-left media-middle">
 					<a href="javascript:void(0);"> <img style="width: 100px; height: 100px;"
-							class="media-object" src="IMG/jsp.png" alt="...">
+						class="media-object" src="IMG/jsp.png" alt="...">
 					</a>
 				</div>
 				<div class="media-body">

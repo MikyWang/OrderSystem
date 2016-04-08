@@ -27,6 +27,20 @@ public class UserController {
 		return "success";
 	}
 
+	@RequestMapping(value = "admin.action")
+	public String admin(HttpSession session) {
+		String result = "noPermission";
+		if (session.getAttribute("userId") != null) {
+			User user = new User();
+			user.setUserId(session.getAttribute("userId").toString());
+			User user2 = userService.selectUser(user);
+			if (user2 != null && user2.getPower() == 1) {
+				result = "admin";
+			}
+		}
+		return result;
+	}
+
 	@RequestMapping(value = "getUser.action")
 	@ResponseBody
 	public User autoLogin(HttpSession session) {
@@ -61,8 +75,9 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "logOut.action")
+	@ResponseBody
 	public String logOut(HttpSession session) {
 		session.removeAttribute("userId");
-		return "redirect:/";
+		return "success";
 	}
 }
