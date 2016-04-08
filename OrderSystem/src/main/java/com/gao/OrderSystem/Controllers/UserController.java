@@ -31,7 +31,9 @@ public class UserController {
 	@ResponseBody
 	public User autoLogin(HttpSession session) {
 		User user = new User();
-		user.setUserId(session.getAttribute("userId").toString());
+		if (session.getAttribute("userId") != null) {
+			user.setUserId(session.getAttribute("userId").toString());
+		}
 		return userService.selectUser(user);
 	}
 
@@ -46,4 +48,21 @@ public class UserController {
 		return success;
 	}
 
+	@RequestMapping(value = "login.action", method = RequestMethod.POST)
+	@ResponseBody
+	public boolean login(@RequestBody User user, HttpSession session) {
+		User user2 = userService.selectUser(user);
+		boolean success = false;
+		if (user2 != null && user2.getPassword().equals(user.getPassword())) {
+			session.setAttribute("userId", user2.getUserId());
+			success = true;
+		}
+		return success;
+	}
+
+	@RequestMapping(value = "logOut.action")
+	public String logOut(HttpSession session) {
+		session.removeAttribute("userId");
+		return "redirect:/";
+	}
 }

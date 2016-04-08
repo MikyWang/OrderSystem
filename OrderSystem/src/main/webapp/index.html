@@ -25,27 +25,28 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">老高餐厅</a>
+                    <a class="navbar-brand" href="/OrderSystem">老高餐厅</a>
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <form class="navbar-form navbar-right" role="login" data-bind="showVisible : !isLogin()">
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="用户名/Email" data-bind='value : userName, valueUpdate: "afterkeydown"'>
-                            <input type="text" class="form-control" placeholder="密码" data-bind='value : password, valueUpdate: "afterkeydown"'>
+                            <input type="password" class="form-control" placeholder="密码" data-bind='value : password, valueUpdate: "afterkeydown"'>
                         </div>
-                        <button type="submit" class="btn btn-primary">
+                        <button type="button" class="btn btn-primary" data-bind="click : login">
                             登录
                         </button>
                     </form>
                     <p class="navbar-text navbar-right" data-bind="showVisible : isLogin">
-                        欢迎回来,&nbsp;<a data-bind="text : userName , attr : {href : userUrl}"></a>
+                        欢迎回来,&nbsp;<a class="list-group-item-success" data-bind="text : userName , attr : {href : userUrl}"></a>
+                        &nbsp;<a class="list-group-item-info" href="logOut.action">注销</a>
                         &nbsp;
                     </p>
                 </div>
 
             </div>
         </nav>
-        <div class="embed-responsive embed-responsive-16by9">
+        <div class="embed-responsive embed-responsive-16by9" style="height: 100%!important">
             <iframe class="embed-responsive-item" data-bind="attr : {src : contentUrl}"></iframe>
         </div>
     </body>
