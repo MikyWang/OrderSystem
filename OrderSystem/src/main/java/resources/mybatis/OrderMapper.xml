@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gao.OrderSystem.DAO.OrderMapper" >
+    <resultMap id="BaseResultMap" type="com.gao.OrderSystem.Entity.Order" >
+        <id column="line_id" property="lineId" jdbcType="VARCHAR" />
+        <result column="order_id" property="orderId" jdbcType="VARCHAR" />
+        <result column="customer_name" property="customerName" jdbcType="VARCHAR" />
+        <result column="status" property="status" jdbcType="VARCHAR" />
+        <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+        <result column="complete_time" property="completeTime" jdbcType="TIMESTAMP" />
+        <result column="spend_minutes" property="spendMinutes" jdbcType="VARCHAR" />
+        <result column="line_number" property="lineNumber" jdbcType="INTEGER" />
+        <result column="line_price" property="linePrice" jdbcType="DECIMAL" />
+        <result column="line_name" property="lineName" jdbcType="VARCHAR" />
+        <result column="line_picture_prefix" property="linePicturePrefix" jdbcType="VARCHAR" />
+    </resultMap>
+    <resultMap id="ResultMapWithBLOBs" type="com.gao.OrderSystem.Entity.Order" extends="BaseResultMap" >
+        <result column="line_picture" property="linePicture" jdbcType="LONGVARBINARY" />
+    </resultMap>
+    <sql id="Base_Column_List" >line_id, order_id, customer_name, status, start_time, complete_time, spend_minutes,
+        line_number, line_price, line_name, line_picture_prefix</sql>
+    <sql id="Blob_Column_List" >line_picture</sql>
+    <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+        select
+        <include refid="Base_Column_List" />
+        ,
+        <include refid="Blob_Column_List" />
+        from order_table
+        where line_id = #{lineId,jdbcType=VARCHAR}
+    </select>
+    <select id="selectAll" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+        select
+        <include refid="Base_Column_List" />
+        ,
+        <include refid="Blob_Column_List" />
+        from order_table order by start_time,line_number
+    </select>
+    <select id="selectByCustomer" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+        select
+        <include refid="Base_Column_List" />
+        ,
+        <include refid="Blob_Column_List" />
+        from order_table
+        where customer_name = #{customer_name,jdbcType=VARCHAR} or order_id =#{orderId,jdbcType=VARCHAR} order by start_time,line_number
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >delete from order_table
+        where line_id = #{lineId,jdbcType=VARCHAR}</delete>
+    <insert id="insert" parameterType="com.gao.OrderSystem.Entity.Order" >insert into order_table (line_id, order_id, customer_name,
+        status, start_time, complete_time,
+        spend_minutes, line_number, line_price,
+        line_name, line_picture_prefix, line_picture
+        )
+        values (#{lineId,jdbcType=VARCHAR}, #{orderId,jdbcType=VARCHAR}, #{customerName,jdbcType=VARCHAR},
+        #{status,jdbcType=VARCHAR}, #{startTime,jdbcType=TIMESTAMP}, #{completeTime,jdbcType=TIMESTAMP},
+        #{spendMinutes,jdbcType=VARCHAR}, #{lineNumber,jdbcType=INTEGER}, #{linePrice,jdbcType=DECIMAL},
+        #{lineName,jdbcType=VARCHAR}, #{linePicturePrefix,jdbcType=VARCHAR}, #{linePicture,jdbcType=LONGVARBINARY}
+        )</insert>
+    <insert id="insertSelective" parameterType="com.gao.OrderSystem.Entity.Order" >
+        insert into order_table
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="lineId != null" >line_id,</if>
+            <if test="orderId != null" >order_id,</if>
+            <if test="customerName != null" >customer_name,</if>
+            <if test="status != null" >status,</if>
+            <if test="startTime != null" >start_time,</if>
+            <if test="completeTime != null" >complete_time,</if>
+            <if test="spendMinutes != null" >spend_minutes,</if>
+            <if test="lineNumber != null" >line_number,</if>
+            <if test="linePrice != null" >line_price,</if>
+            <if test="lineName != null" >line_name,</if>
+            <if test="linePicturePrefix != null" >line_picture_prefix,</if>
+            <if test="linePicture != null" >line_picture,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="lineId != null" >#{lineId,jdbcType=VARCHAR},</if>
+            <if test="orderId != null" >#{orderId,jdbcType=VARCHAR},</if>
+            <if test="customerName != null" >#{customerName,jdbcType=VARCHAR},</if>
+            <if test="status != null" >#{status,jdbcType=VARCHAR},</if>
+            <if test="startTime != null" >#{startTime,jdbcType=TIMESTAMP},</if>
+            <if test="completeTime != null" >#{completeTime,jdbcType=TIMESTAMP},</if>
+            <if test="spendMinutes != null" >#{spendMinutes,jdbcType=VARCHAR},</if>
+            <if test="lineNumber != null" >#{lineNumber,jdbcType=INTEGER},</if>
+            <if test="linePrice != null" >#{linePrice,jdbcType=DECIMAL},</if>
+            <if test="lineName != null" >#{lineName,jdbcType=VARCHAR},</if>
+            <if test="linePicturePrefix != null" >#{linePicturePrefix,jdbcType=VARCHAR},</if>
+            <if test="linePicture != null" >#{linePicture,jdbcType=LONGVARBINARY},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.gao.OrderSystem.Entity.Order" >
+        update order_table
+        <set >
+            <if test="orderId != null" >order_id = #{orderId,jdbcType=VARCHAR},</if>
+            <if test="customerName != null" >customer_name = #{customerName,jdbcType=VARCHAR},</if>
+            <if test="status != null" >status = #{status,jdbcType=VARCHAR},</if>
+            <if test="startTime != null" >start_time = #{startTime,jdbcType=TIMESTAMP},</if>
+            <if test="completeTime != null" >complete_time = #{completeTime,jdbcType=TIMESTAMP},</if>
+            <if test="spendMinutes != null" >spend_minutes = #{spendMinutes,jdbcType=VARCHAR},</if>
+            <if test="lineNumber != null" >line_number = #{lineNumber,jdbcType=INTEGER},</if>
+            <if test="linePrice != null" >line_price = #{linePrice,jdbcType=DECIMAL},</if>
+            <if test="lineName != null" >line_name = #{lineName,jdbcType=VARCHAR},</if>
+            <if test="linePicturePrefix != null" >line_picture_prefix = #{linePicturePrefix,jdbcType=VARCHAR},</if>
+            <if test="linePicture != null" >line_picture = #{linePicture,jdbcType=LONGVARBINARY},</if>
+        </set>
+        where line_id = #{lineId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.gao.OrderSystem.Entity.Order" >update order_table
+        set order_id = #{orderId,jdbcType=VARCHAR},
+        customer_name = #{customerName,jdbcType=VARCHAR},
+        status = #{status,jdbcType=VARCHAR},
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+        complete_time = #{completeTime,jdbcType=TIMESTAMP},
+        spend_minutes = #{spendMinutes,jdbcType=VARCHAR},
+        line_number = #{lineNumber,jdbcType=INTEGER},
+        line_price = #{linePrice,jdbcType=DECIMAL},
+        line_name = #{lineName,jdbcType=VARCHAR},
+        line_picture_prefix = #{linePicturePrefix,jdbcType=VARCHAR},
+        line_picture = #{linePicture,jdbcType=LONGVARBINARY}
+        where line_id = #{lineId,jdbcType=VARCHAR}</update>
+    <update id="updateByPrimaryKey" parameterType="com.gao.OrderSystem.Entity.Order" >update order_table
+        set order_id = #{orderId,jdbcType=VARCHAR},
+        customer_name = #{customerName,jdbcType=VARCHAR},
+        status = #{status,jdbcType=VARCHAR},
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+        complete_time = #{completeTime,jdbcType=TIMESTAMP},
+        spend_minutes = #{spendMinutes,jdbcType=VARCHAR},
+        line_number = #{lineNumber,jdbcType=INTEGER},
+        line_price = #{linePrice,jdbcType=DECIMAL},
+        line_name = #{lineName,jdbcType=VARCHAR},
+        line_picture_prefix = #{linePicturePrefix,jdbcType=VARCHAR}
+        where line_id = #{lineId,jdbcType=VARCHAR}</update>
+</mapper>

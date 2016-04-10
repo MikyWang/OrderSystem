@@ -5882,13 +5882,13 @@ ko.bindingHandlers.showVisible = {
      update : function(element, valueAccessor) {
          var value = ko.utils.unwrapObservable(valueAccessor());
          if (value) {
-             $(element).show(300).animate({
+             $(element).show(200).animate({
                opacity : '1'
             });
         } else {
             $(element).animate({
                 opacity : '0.2'
-            }).hide(300);
+            }).hide(200);
          };
      }
  };

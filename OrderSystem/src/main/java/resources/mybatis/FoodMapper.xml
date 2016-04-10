@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.gao.OrderSystem.DAO.FoodMapper" >
+    <resultMap id="BaseResultMap" type="com.gao.OrderSystem.Entity.Food" >
+        <id column="food_id" property="foodId" jdbcType="INTEGER" />
+        <id column="food_name" property="foodName" jdbcType="VARCHAR" />
+        <result column="food_price" property="foodPrice" jdbcType="DECIMAL" />
+        <result column="food_picture_prefix" property="foodPicturePrefix" jdbcType="VARCHAR" />
+    </resultMap>
+    <resultMap id="ResultMapWithBLOBs" type="com.gao.OrderSystem.Entity.Food" extends="BaseResultMap" >
+        <result column="food_picture" property="foodPicture" jdbcType="LONGVARBINARY" />
+    </resultMap>
+    <sql id="Base_Column_List" >food_id, food_name, food_price, food_picture_prefix</sql>
+    <sql id="Blob_Column_List" >food_picture</sql>
+    <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="com.gao.OrderSystem.Entity.FoodKey" >
+        select
+        <include refid="Base_Column_List" />
+        ,
+        <include refid="Blob_Column_List" />
+        from food_table
+        where food_id = #{foodId,jdbcType=INTEGER}
+        or food_name = #{foodName,jdbcType=VARCHAR}
+    </select>
+    <select id="selectAll" resultMap="ResultMapWithBLOBs" >
+        select
+        <include refid="Base_Column_List" />
+        ,
+        <include refid="Blob_Column_List" />
+        from food_table
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="com.gao.OrderSystem.Entity.FoodKey" >delete from food_table
+        where food_id = #{foodId,jdbcType=INTEGER}
+        or food_name = #{foodName,jdbcType=VARCHAR}</delete>
+    <insert id="insert" parameterType="com.gao.OrderSystem.Entity.Food" >insert into food_table (food_id, food_name, food_price,
+        food_picture_prefix, food_picture)
+        values (#{foodId,jdbcType=INTEGER}, #{foodName,jdbcType=VARCHAR}, #{foodPrice,jdbcType=DECIMAL},
+        #{foodPicturePrefix,jdbcType=VARCHAR}, #{foodPicture,jdbcType=LONGVARBINARY})</insert>
+    <insert id="insertSelective" parameterType="com.gao.OrderSystem.Entity.Food" >
+        insert into food_table
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="foodId != null" >food_id,</if>
+            <if test="foodName != null" >food_name,</if>
+            <if test="foodPrice != null" >food_price,</if>
+            <if test="foodPicturePrefix != null" >food_picture_prefix,</if>
+            <if test="foodPicture != null" >food_picture,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="foodId != null" >#{foodId,jdbcType=INTEGER},</if>
+            <if test="foodName != null" >#{foodName,jdbcType=VARCHAR},</if>
+            <if test="foodPrice != null" >#{foodPrice,jdbcType=DECIMAL},</if>
+            <if test="foodPicturePrefix != null" >#{foodPicturePrefix,jdbcType=VARCHAR},</if>
+            <if test="foodPicture != null" >#{foodPicture,jdbcType=LONGVARBINARY},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.gao.OrderSystem.Entity.Food" >
+        update food_table
+        <set >
+            <if test="foodPrice != null" >food_price = #{foodPrice,jdbcType=DECIMAL},</if>
+            <if test="foodPicturePrefix != null" >food_picture_prefix = #{foodPicturePrefix,jdbcType=VARCHAR},</if>
+            <if test="foodPicture != null" >food_picture = #{foodPicture,jdbcType=LONGVARBINARY},</if>
+        </set>
+        where food_id = #{foodId,jdbcType=INTEGER}
+        or food_name = #{foodName,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.gao.OrderSystem.Entity.Food" >update food_table
+        set food_price = #{foodPrice,jdbcType=DECIMAL},
+        food_picture_prefix = #{foodPicturePrefix,jdbcType=VARCHAR},
+        food_picture = #{foodPicture,jdbcType=LONGVARBINARY}
+        where food_id = #{foodId,jdbcType=INTEGER}
+        or food_name = #{foodName,jdbcType=VARCHAR}</update>
+    <update id="updateByPrimaryKey" parameterType="com.gao.OrderSystem.Entity.Food" >update food_table
+        set food_price = #{foodPrice,jdbcType=DECIMAL},
+        food_picture_prefix = #{foodPicturePrefix,jdbcType=VARCHAR}
+        where food_id = #{foodId,jdbcType=INTEGER}
+        or food_name = #{foodName,jdbcType=VARCHAR}</update>
+</mapper>

@@ -21,15 +21,19 @@
 		<iframe class="embed-responsive-item" src="/OrderSystem"></iframe>
 	</div>
 	<div class="container" data-model="adminModel">
-		<div class="row">
-			<div class="col-sm-2 hidden-xs" role="navigation">
-				<ul class="nav nav-pills nav-stacked" data-spy="affix" data-offset-top="125">
-					<li class="active"><a href="#menuUploader">上传菜单</a></li>
-					<li><a href="#section-2">客户订单</a></li>
-					<li><a href="#section-3">第三部分</a></li>
-					<li><a href="#section-4">第四部分</a></li>
-					<li><a href="#section-5">第五部分</a></li>
-				</ul>
+		<div class="row" id="menuUploader">
+			<div class="col-sm-2 hidden-xs ">
+				<div class="panel panel-primary" role="navigation" data-spy="affix">
+					<div class="panel-heading">
+						<h3 class="panel-title">厨师操作</h3>
+					</div>
+					<div class="panel-body">
+						<ul class="nav nav-pills nav-stacked">
+							<li class="active"><a href="#menuUploader">上传菜单</a></li>
+							<li><a href="#orders">客户订单</a></li>
+						</ul>
+					</div>
+				</div>
 			</div>
 			<div class="col-sm-10">
 				<div class="panel panel-default">
@@ -37,7 +41,7 @@
 						<h3 class="panel-title">上传一个新菜品</h3>
 					</div>
 					<div class="panel-body">
-						<form class="form-horizontal" id="menuUploader">
+						<form class="form-horizontal">
 							<div class="form-group">
 								<label class="col-sm-2 control-label">菜品名称:</label>
 								<div class="col-sm-4">
@@ -61,7 +65,7 @@
 							</div>
 							<div class="form-group">
 								<div class="col-sm-offset-2 col-sm-4">
-									<img alt="food" data-bind="attr : {src : foodPicture}">
+									<img alt="food" class="image" data-bind="attr : {src : foodPicture}">
 									<input style="display: none" type="file" class="file" />
 								</div>
 							</div>
@@ -71,6 +75,43 @@
 								</div>
 							</div>
 						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row" data-bind='foreach : ordersList' id="orders">
+			<div class="panel panel-success col-sm-offset-2">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						订单编号:&nbsp;<span class="text-info" data-bind="html :orderId"></span><span class="pull-right">已等待：<span
+							data-bind="html : spendMinutes"></span>分钟
+						</span>
+					</h3>
+				</div>
+				<div class="panel-body">
+					<div data-bind="foreach : orders">
+						<div class=" media col-md-12 well" style="margin: 5px 5px !important;">
+							<div class="media-left media-middle">
+								<a href="javascript:void(0);"> <img style="width: 100px; height: 100px;"
+									class="media-object" alt="..." data-bind="attr : {src : linePicture}">
+								</a>
+							</div>
+							<div class="media-body">
+								<div class="pull-right">
+									<span class="text-warning" data-bind="html : status"></span>
+								</div>
+								<h4 class="media-heading text-info" data-bind="html : lineName"></h4>
+								<p>
+									<span class="text-danger">￥</span> <span class="text-danger" data-bind="html : linePrice"></span>
+								</p>
+								<p style="margin-top: 25px;">
+									<a href="#" class="text-primary" data-bind="html : customerName"></a>
+								</p>
+								<div class="pull-right">
+									<button class="btn btn-primary">完成菜品</button>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

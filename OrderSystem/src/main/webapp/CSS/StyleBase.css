@@ -16,3 +16,7 @@ html, body {
 .warning {
     color: red;
 }
+
+* {
+    font-family: "microsoft yahei", "Times New Roman", "宋体", Times, serif;
+}
