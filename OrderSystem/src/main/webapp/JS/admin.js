@@ -1,3 +1,6 @@
+/// <reference path="C:\Users\wqy81\git\OrderSystem\dt\jquery.d.ts" />
+/// <reference path="C:\Users\wqy81\git\OrderSystem\dt\knockout.d.ts" />
+
 var adminModel = {
     foodName : ko.observable(''),
     foodPrice : ko.observable(''),
@@ -32,26 +35,37 @@ function getOrders() {
         url : 'getAllOrders.action',
         type : 'POST',
         success : function(data) {
-            var orders = [];
+            var orders = ko.observableArray([]);
             for (var i = 0; i < data.length; i++) {
                 if (i > 0) {
                     if (data[i].orderId != data[i - 1].orderId) {
                         adminModel.ordersList.push({
-                            orderId : ko.observable(orders[0].orderId),
-                            spendMinutes : ko.observable(orders[0].spendMinutes),
-                            orders : ko.observableArray(orders),
-                            customerName : ko.observable(orders[0].customerName)
+                            orderId : ko.observable(orders()[0].orderId()),
+                            spendMinutes : ko.observable(orders()[0].spendMinutes()),
+                            orders : orders,
+                            customerName : ko.observable(orders()[0].customerName())
                         });
-                        orders = [];
+                        orders = ko.observableArray([]);
                     }
                 }
-                orders.push(data[i]);
+                orders.push({
+                    orderId : ko.observable(data[i].orderId),
+                    linePicture : ko.observable(data[i].linePicture),
+                    status : ko.observable(data[i].status),
+                    lineName : ko.observable(data[i].lineName),
+                    linePrice : ko.observable(data[i].linePrice),
+                    spendMinutes : ko.observable(data[i].spendMinutes),
+                    customerName : ko.observable(data[i].customerName),
+                    completeOrder : function(param) {
+                        alert(this);
+                    }
+                });
                 if (i == data.length - 1) {
                     adminModel.ordersList.push({
-                        orderId : ko.observable(orders[0].orderId),
-                        spendMinutes : ko.observable(orders[0].spendMinutes),
+                        orderId : ko.observable(orders()[0].orderId()),
+                        spendMinutes : ko.observable(orders()[0].spendMinutes()),
                         orders : orders,
-                        customerName : ko.observable(orders[0].customerName)
+                        customerName : ko.observable(orders()[0].customerName())
                     });
                 }
             }

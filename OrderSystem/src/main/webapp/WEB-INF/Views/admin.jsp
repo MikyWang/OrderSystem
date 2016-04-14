@@ -23,7 +23,7 @@
 	<div class="container" data-model="adminModel">
 		<div class="row" id="menuUploader">
 			<div class="col-sm-2 hidden-xs ">
-				<div class="panel panel-primary" role="navigation" data-spy="affix">
+				<div class="panel panel-primary" role="navigation"   data-spy="affix">
 					<div class="panel-heading">
 						<h3 class="panel-title">厨师操作</h3>
 					</div>
@@ -108,7 +108,7 @@
 									<a href="#" class="text-primary" data-bind="html : customerName"></a>
 								</p>
 								<div class="pull-right">
-									<button class="btn btn-primary">完成菜品</button>
+									<button class="btn btn-primary" data-bind="click : completeOrder">完成菜品</button>
 								</div>
 							</div>
 						</div>
