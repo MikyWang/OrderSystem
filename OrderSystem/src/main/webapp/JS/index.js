@@ -25,6 +25,7 @@ $(document).ready(function() {
     });
 });
 
+
 function navigate(url) {
     if (top == self) {
         window.location.href = url;

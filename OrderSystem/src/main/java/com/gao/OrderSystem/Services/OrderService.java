@@ -63,6 +63,18 @@ public class OrderService {
 		return orderTemps;
 	}
 
+	public boolean completeOrder(Order order) {
+		boolean success = false;
+		try {
+			orderMapper.updateByPrimaryKeySelective(order);
+			success = true;
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
+		return success;
+	}
+
 	public void insertSelective(List<Order> orders) {
 		String orderId = UUID.randomUUID().toString().substring(0, 16);
 		Date startTime = new Date();

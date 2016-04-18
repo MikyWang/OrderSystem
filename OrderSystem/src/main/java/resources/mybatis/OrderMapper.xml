@@ -33,7 +33,7 @@
         <include refid="Base_Column_List" />
         ,
         <include refid="Blob_Column_List" />
-        from order_table order by start_time,line_number
+        from order_table order by start_time DESC,line_number
     </select>
     <select id="selectByCustomer" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
         select
@@ -41,7 +41,7 @@
         ,
         <include refid="Blob_Column_List" />
         from order_table
-        where customer_name = #{customer_name,jdbcType=VARCHAR} or order_id =#{orderId,jdbcType=VARCHAR} order by start_time,line_number
+        where customer_name = #{customer_name,jdbcType=VARCHAR} or order_id =#{orderId,jdbcType=VARCHAR} order by start_time DESC,line_number
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >delete from order_table
         where line_id = #{lineId,jdbcType=VARCHAR}</delete>
