@@ -13,7 +13,7 @@ public class ViewController {
 	HttpSession session;
 
 	public String verifyUser(String url) {
-		String actuallUrl = "register";
+		String actuallUrl = "menu";
 		if (session.getAttribute("userId") != null) {
 			actuallUrl = url;
 		}

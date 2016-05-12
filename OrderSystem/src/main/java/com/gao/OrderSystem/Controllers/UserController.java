@@ -87,6 +87,6 @@ public class UserController {
 	@ResponseBody
 	public String logOut(HttpSession session) {
 		session.removeAttribute("userId");
-		return "success";
+		return "/OrderSystem";
 	}
 }

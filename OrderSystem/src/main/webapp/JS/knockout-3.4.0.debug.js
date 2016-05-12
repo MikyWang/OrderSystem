@@ -5897,3 +5897,10 @@ function isNullOrEmpty(object) {
     return object == null || object == '' || object == undefined;
 }
 
+ko.bindingHandlers.disabled = {
+  update: function (element, valueAccessor) {
+    ko.bindingHandlers.disable.update(element, valueAccessor)
+    var value = ko.utils.unwrapObservable(valueAccessor())
+    ko.utils.toggleDomNodeCssClass(element, 'disabled', value)
+  }
+}

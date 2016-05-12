@@ -7,6 +7,6 @@
 </head>
 <body>
 	抱歉，你没有权限访问此页。
-	<a href="/OrderSystem">点此返回</a>
+	<a href="/OrderSystem/menu.action">点此返回</a>
 </body>
 </html>

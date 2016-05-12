@@ -35,7 +35,12 @@ public class OrderService {
 		orderTemp.setCompleteTime(order.getCompleteTime());
 		Date date = new Date();
 		String spendMinutes = String.valueOf((date.getTime() - order.getStartTime().getTime()) / 60000);
-		orderTemp.setSpendMinutes(spendMinutes);
+		if (!orderTemp.getStatus().equals("已完成")) {
+			orderTemp.setSpendMinutes(spendMinutes);
+		} else {
+			orderTemp.setSpendMinutes(
+					String.valueOf((orderTemp.getCompleteTime().getTime() - order.getStartTime().getTime()) / 60000));
+		}
 		orderTemp.setLineNumber(order.getLineNumber());
 		orderTemp.setLineId(order.getLineId());
 		orderTemp.setLinePrice(order.getLinePrice());

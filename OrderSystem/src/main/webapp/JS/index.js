@@ -60,9 +60,9 @@ indexModel.login = function() {
         success : function(data) {
             if (data) {
                 if (top == self) {
-                    location.reload();
+                    location.href="admin.action"
                 } else {
-                    parent.location = "/OrderSystem";
+                    parent.location = "menu.action";
                 };
             } else {
                 alert("该用户不存在");
@@ -87,7 +87,7 @@ indexModel.logout = function() {
             if (top == self) {
                 location.reload();
             } else {
-                parent.location = "/OrderSystem";
+                parent.location = "/OrderSystem/menu.action";
             };
         }
     });
